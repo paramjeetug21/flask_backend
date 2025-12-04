@@ -1,3 +1,4 @@
+import os
 from src.auth import create_app
 from src.profiles import init_profiles
 from flask import request, make_response
@@ -30,17 +31,16 @@ def handle_preflight():
     if request.method == "OPTIONS":
         response = make_response()
         origin = request.headers.get("Origin")
-
         if origin in allowed_origins:
             response.headers["Access-Control-Allow-Origin"] = origin
-
         response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
         response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
         response.headers["Access-Control-Allow-Credentials"] = "true"
         return response, 200
 
 # ----------------------------------------
-# LOCAL RUN (ignored in Vercel)
+# RENDER-SPECIFIC RUN
 # ----------------------------------------
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))  # Render provides PORT
+    app.run(host="0.0.0.0", port=port, debug=True)
