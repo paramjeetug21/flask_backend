@@ -7,7 +7,7 @@ app = create_app()
 init_profiles(app)
 
 # Apply global CORS
-CORS(app, supports_credentials=True)
+CORS(app, origins="*", supports_credentials=True)
 
 # Handle preflight requests for serverless/Vercel
 @app.before_request
