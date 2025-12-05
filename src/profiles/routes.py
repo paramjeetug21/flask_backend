@@ -1,9 +1,16 @@
 from flask import Blueprint, request, jsonify
 from .models import create_profile, get_profiles_by_user, get_profile_by_id, update_profile, delete_profile
-
+from flask_cors import cross_origin
 profile_bp = Blueprint("profile_bp", __name__)
 
 # Create profile
+@cross_origin(
+    origins=[
+        "http://localhost:5173",
+        "https://flask-frontend-git-main-paramjeetug21s-projects.vercel.app"
+    ],
+    supports_credentials=True
+)
 @profile_bp.route("/", methods=["POST"])
 def add_profile():
     data = request.json
@@ -15,6 +22,13 @@ def add_profile():
     return jsonify({"message": "Profile created", "profile_id": str(result.inserted_id)}), 201
 
 # Get all profiles for a user
+@cross_origin(
+    origins=[
+        "http://localhost:5173",
+        "https://flask-frontend-git-main-paramjeetug21s-projects.vercel.app"
+    ],
+    supports_credentials=True
+)
 @profile_bp.route("/user/<user_id>", methods=["GET"])
 def list_profiles(user_id):
     profiles = get_profiles_by_user(user_id)
@@ -25,6 +39,13 @@ def list_profiles(user_id):
     return jsonify(profiles), 200
 
 # Get single profile
+@cross_origin(
+    origins=[
+        "http://localhost:5173",
+        "https://flask-frontend-git-main-paramjeetug21s-projects.vercel.app"
+    ],
+    supports_credentials=True
+)
 @profile_bp.route("/<profile_id>", methods=["GET"])
 def get_profile(profile_id):
     profile = get_profile_by_id(profile_id)
@@ -36,6 +57,13 @@ def get_profile(profile_id):
     return jsonify(profile), 200
 
 # Update profile
+@cross_origin(
+    origins=[
+        "http://localhost:5173",
+        "https://flask-frontend-git-main-paramjeetug21s-projects.vercel.app"
+    ],
+    supports_credentials=True
+)
 @profile_bp.route("/<profile_id>", methods=["PUT"])
 def edit_profile(profile_id):
     data = request.json
@@ -44,6 +72,13 @@ def edit_profile(profile_id):
     return jsonify({"message": "Profile updated"}), 200
 
 # Delete profile
+@cross_origin(
+    origins=[
+        "http://localhost:5173",
+        "https://flask-frontend-git-main-paramjeetug21s-projects.vercel.app"
+    ],
+    supports_credentials=True
+)
 @profile_bp.route("/<profile_id>", methods=["DELETE"])
 def remove_profile(profile_id):
     delete_profile(profile_id)

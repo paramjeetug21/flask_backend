@@ -6,7 +6,13 @@ auth_bp = Blueprint("auth", __name__)
 
 # ----------------- SIGNUP -----------------
 @auth_bp.route("/signup", methods=["POST", "OPTIONS"])
-@cross_origin(origins="http://localhost:5173", supports_credentials=True)
+@cross_origin(
+    origins=[
+        "http://localhost:5173",
+        "https://flask-frontend-git-main-paramjeetug21s-projects.vercel.app"
+    ],
+    supports_credentials=True
+)
 def signup():
     if request.method == "OPTIONS":
         return jsonify({}), 200  # preflight
@@ -26,7 +32,13 @@ def signup():
 
 # ----------------- LOGIN -----------------
 @auth_bp.route("/login", methods=["POST", "OPTIONS"])
-@cross_origin(origins="http://localhost:5173", supports_credentials=True)
+@cross_origin(
+    origins=[
+        "http://localhost:5173",
+        "https://flask-frontend-git-main-paramjeetug21s-projects.vercel.app"
+    ],
+    supports_credentials=True
+)
 def login():
     if request.method == "OPTIONS":
         return jsonify({}), 200
@@ -44,7 +56,13 @@ def login():
 
 # --------------- UPDATE PROFILE ---------------
 @auth_bp.route("/update-profile", methods=["PUT", "OPTIONS"])
-@cross_origin(origins="http://localhost:5173", supports_credentials=True)
+@cross_origin(
+    origins=[
+        "http://localhost:5173",
+        "https://flask-frontend-git-main-paramjeetug21s-projects.vercel.app"
+    ],
+    supports_credentials=True
+)
 def update_profile():
     if request.method == "OPTIONS":
         return jsonify({}), 200
