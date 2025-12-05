@@ -25,4 +25,3 @@ venv/
 
 # Others
 *.egg-info/
-config.py
