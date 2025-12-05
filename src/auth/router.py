@@ -51,8 +51,13 @@ def login():
     if not user or not User.verify_password(user, password):
         return jsonify({"error": "Invalid credentials"}), 401
 
-    return jsonify({"message": "Login successful", "user": user}), 200
+    # FIX: Convert ObjectId to string
+    user["_id"] = str(user["_id"])
 
+    return jsonify({
+        "message": "Login successful",
+        "user": user
+    }), 200
 
 # --------------- UPDATE PROFILE ---------------
 @auth_bp.route("/update-profile", methods=["PUT", "OPTIONS"])
